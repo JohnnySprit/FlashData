@@ -24,8 +24,17 @@ function App() {
       );
       setPlayer(data);
     } catch (err: unknown) {
-      const axiosError = err as { response?: { data?: { error?: string } } };
-      setError(axiosError.response?.data?.error || 'Player not found');
+      const axiosError = err as { 
+        response?: { data?: { error?: string }; status?: number };
+        message?: string;
+        code?: string;
+      };
+      
+      if (axiosError.code === 'ERR_NETWORK' || !axiosError.response) {
+        setError('Cannot connect to server. Make sure the backend is running on port 3001.');
+      } else {
+        setError(axiosError.response?.data?.error || 'Player not found');
+      }
     } finally {
       setLoading(false);
     }

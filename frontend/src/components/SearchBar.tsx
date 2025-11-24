@@ -1,3 +1,5 @@
+import { KeyboardEvent } from 'react';
+
 interface SearchBarProps {
   nickname: string;
   onNicknameChange: (value: string) => void;
@@ -6,7 +8,7 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ nickname, onNicknameChange, onSearch, loading }: SearchBarProps) {
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       onSearch();
     }
